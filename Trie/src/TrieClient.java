@@ -19,7 +19,7 @@ public class TrieClient {
 	/*
 	 * Main function is the starting point of the program
 	 */
-//testing
+
 	public static void main(String[] args) {
 		//create new trie
 		Trie testTrie = new Trie();
