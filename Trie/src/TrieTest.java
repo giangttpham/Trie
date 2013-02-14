@@ -1,68 +1,106 @@
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 
 public class TrieTest {
 
-	Trie testTrie = new Trie();
+	Trie testTrie;
+	ArrayList<String> result = new ArrayList<String>();
+	
 	@Before
 	public void setUp() throws Exception {
+		testTrie = new Trie();
 		testTrie.add("call");
 		testTrie.add("recalling");
 		testTrie.add("hello");
+		testTrie.add("thermometer");
 		testTrie.add("setup");
 		testTrie.add("attacking");
 		testTrie.add("back");
 		testTrie.add("cake");
+		testTrie.add("they");
 	}
 
 	@After
 	public void tearDown() throws Exception {
 		testTrie = new Trie();
-	}
-
-//	@Test
-//	public void testTrie() {
-//		fail("Not yet implemented");
-//	}
-
-	@Test
-	public void testAddWord() {
-		String newWord = "test";
-		testTrie.add(newWord);
-		
-		assertTrue(testTrie.find(newWord));
+		result = new ArrayList<String>();
 	}
 
 	@Test
-	public void testFindWord() {
-		String currWord = "attacking";
-		assertTrue(testTrie.find(currWord));
+	public void testAdd() {
+		String addWord = "baby";
+		testTrie.add(addWord);
+		assertTrue(testTrie.find(addWord));
 	}
 
-	
 	@Test
-	public void testPrintWordsContainSubstring() {
+	public void testFind() {
+		String findWord = "they";
+		assertTrue(testTrie.find(findWord));
+	}
+
+	@Test
+	public void testGetWordsWithSubstring() {
 		String substring = "ck";
-		ArrayList<String> resultList = new ArrayList<String>();
 		
-		resultList = testTrie.getWordsWithSubstring(substring);
-		
-		assertTrue(resultList.size() == 2);
+		result = testTrie.getWordsWithSubstring(substring);
+		assertTrue(result.size() == 2);
 	}
 
 	@Test
 	public void testToString() {
-		//ArrayList<String> resultList = new ArrayList<String>();
-		String resultString;
-		resultString = testTrie.toString();
+		String result;
+		result = testTrie.toString();
+		System.out.println(result);
+	}
+
+	@Test
+	public void testAllWordsVisitor() {
+		AllWordsVisitor testVisitor = new AllWordsVisitor();
 		
-		assertTrue(!resultString.isEmpty());
+		result = testTrie.accept(testVisitor);
+		assertTrue(result.size() == 9);
+	}
+	
+	@Test
+	public void testWordsWithSubstringVisitor() {
+		WordsWithSubstringVisitor testVisitor = new WordsWithSubstringVisitor("ck");
+		
+		result = testTrie.accept(testVisitor);
+		assertTrue(result.size() == 2);
+	}
+	
+	@Test
+	public void testWordsWithSubstringStrategy() {
+		WordsWithSubstringStrategy testStra = new WordsWithSubstringStrategy("th");
+		StrategyVisitor testVisitor = new StrategyVisitor(testStra);
+		
+		result = testTrie.accept(testVisitor);
+		assertTrue(result.size() == 2);
 		
 	}
+	
+	@Test
+	public void testWordsWithTwoVowelsStrategy() {
+		WordsWithTwoVowelsStrategy testStra = new WordsWithTwoVowelsStrategy();
+		StrategyVisitor testVisitor = new StrategyVisitor(testStra);
+		result = testTrie.accept(testVisitor);
+		assertTrue(result.size() == 3);
+	}
+//	@Test
+//	public void testAccept() {
+//		fail("Not yet implemented");
+//	}
+//
+//	@Test
+//	public void testIterator() {
+//		fail("Not yet implemented");
+//	}
 
 }

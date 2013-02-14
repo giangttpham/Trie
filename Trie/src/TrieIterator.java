@@ -1,91 +1,57 @@
 
-import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Iterator;
+
 
 public class TrieIterator implements Iterator<String> {
 
 	TrieNode top;
-	ArrayDeque<TrieNode> currTrie = new ArrayDeque<TrieNode>();
+	ArrayList<TrieNode> currTrie = new ArrayList<TrieNode>();
 	
 	public TrieIterator(TrieNode node){
 		top = node;
-		currTrie.push(top);
+		currTrie.add(top);
 	}
-	
-//	public void startIterator(TrieNode node){
-//		top = node;
-//		if (top.children != null)
-//			getWords(currTrie,"",top);
-//	}
 	
 	@Override
 	public boolean hasNext() {
-		// TODO Auto-generated method stub
 		if(!currTrie.isEmpty())
 			return true;
 		else
 			return false;
-	
 	}
 
 	@Override
 	public String next() {
-		// TODO Auto-generated method stub
-		//return currTrie.pop();
 		TrieNode currNode = new TrieNode();
-		currNode = currTrie.pop();
 		boolean isWord = false;
-		
-		while (isWord == false){
-			//			while(currNode == null)
-			currNode = currTrie.pop();
-			for(int i = 0; i < 26; i++)
+
+		while (isWord == false){  //if the current character isn't end of word
+			currNode = currTrie.get(0);
+			currTrie.remove(0); //pop the character of the top of stack
+			for(int i = 0; i < 26; i++) //push all its children on the stack
 				if (currNode.children[i] != null)
-					currTrie.push(currNode.children[i]);
+					currTrie.add(0,currNode.children[i]);
 
-			isWord = currNode.endOfWord;
-
+			isWord = currNode.endOfWord; //check if its end of word
 		}
 
-		return getWord(currNode);
-		
-		
+		return getWord(currNode);  //if a word is hit
 	}
 
 	@Override
 	public void remove() {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
-	
-	
-//	public void getWords(ArrayDeque<String> result, String currStr, TrieNode currNode) {
-//		TrieNode currChild; // Holds each child of the current TrieNode
-//
-//		currStr += currNode.nContent; //append the each character to make a word
-//		
-//		//go through each TrieNode and recursively call the function
-//		for (int i = 0; i < 26; i++) { 
-//			currChild = currNode.children[i];
-//			if (currChild != null)
-//				getWords(result, currStr, currChild);
-//		}
-//
-//		// if we hit a word that contains the letters
-//		if (currNode.endOfWord) 
-//			result.add(currStr);
-//	}
 	
 	public String getWord(TrieNode node){
 		String currStr = "" + node.nContent;
 		
-		while (node.parent != null){
+		while (node.parent != null){  //trace back from the current node
 			node = node.parent;
-			currStr = node.nContent + currStr;
+			currStr = node.nContent + currStr; //and create the word
 		}
 		
 		return currStr;
 	}
-	
-
 }

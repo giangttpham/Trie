@@ -1,16 +1,17 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class WordsWithSubstringVisitor extends Visitor{
 
 	String letters;
-	ArrayList<String> result = new ArrayList<String>();
 	
 	public WordsWithSubstringVisitor(String substring){
 		letters = substring;
 	}
+	
 	@Override
 	ArrayList<String >visitTrieNode(Trie currTrie) {
-		// TODO Auto-generated method stub
+		//visitor to print words with substring
 		return currTrie.getWordsWithSubstring(letters);
 	}
 

@@ -3,7 +3,6 @@ import java.util.ArrayList;
 
 public class WordsWithSubstringStrategy extends Strategy {
 
-	//ArrayList<String> result = new ArrayList<String>();
 	String letters;
 	
 	public WordsWithSubstringStrategy(String substring){
@@ -12,9 +11,8 @@ public class WordsWithSubstringStrategy extends Strategy {
 	
 	@Override
 	ArrayList<String> getAlgorithm(Visitor currVisitor, Trie currTrie) {
-		// TODO Auto-generated method stub
+		//strategy to call the function to return words with the substring
 		return currTrie.getWordsWithSubstring(letters);
-		
 	}
 
 }

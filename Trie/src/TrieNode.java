@@ -10,32 +10,22 @@
  */
 public class TrieNode {
 
-	/*************************************DATA MEMBERS**********************************/
+	
 	char nContent; 			//The character that each TrieNode holds
 	boolean endOfWord;		//Indicates if this TrieNode is the end of a word
 	TrieNode[] children;//List of all the characters followed the current character
-	TrieNode parent;
+	TrieNode parent;  //reference to parent node
 	
-	/***********************************METHOD FUNCTIONS********************************/
-	/*
-	 * PURPOSE: default constructor
-	 */
 	public TrieNode(){
-		endOfWord = false;					//Assume the new TrieNode isn't the end of a word
-		children = new TrieNode[26];	//Instantiate the children list
-		//parent = new TrieNode();
+		endOfWord = false;					
+		children = new TrieNode[26];	
 	}
 
-	/*
-	 * PURPOSE: constructor to create a new TrieNode with a given character
-	 * PARAMS: 
-	 * 	newChar: input character
-	 */
 	public TrieNode(char newChar){
-		nContent = newChar;					//Set content to the given character
-		endOfWord = false;					//Assume the new TrieNode isn't the end of a word
-		children = new TrieNode[26];	//Instantiate the children list
-		//parent = new TrieNode();		//initialize the parent node to null
+		nContent = newChar;					
+		endOfWord = false;					
+		children = new TrieNode[26];	
+	
 	}
 	
 	public void addWord(String word) {
@@ -43,30 +33,23 @@ public class TrieNode {
 			endOfWord = true;
 			return;
 		}
-		TrieNode forWord = nodeFor(word);
+		TrieNode forWord = addNode(word); //get first charater and add it to trie
 		forWord.parent = this;
-		forWord.addWord(word.substring(1));
+		forWord.addWord(word.substring(1)); //keep calling itself until the whole word is added
 	}
 	
-	private TrieNode nodeFor(String word) {
+	private TrieNode addNode(String word) {
 		char c = word.charAt(0);
 		int index = c - 'a';
 		if (children[index] == null)
-			children[index] = new TrieNode(c);
-		return children[index];
+			children[index] = new TrieNode(c); //insert the new character into the correct position
+		return children[index]; 
 	}
 	
-	/*
-	 * PURPOSE: determine if a character is a child of the current TrieNode
-	 * PARAMS:
-	 * 	currChar: the character the program is looking for
-	 * ALGORITHM: the function goes through the children list of the current TrieNode
-	 * and looks at each child. If the content of any child matches the given
-	 * character, the function will return that child TrieNode. If not, it'll return null.
-	 */
+	
 	public TrieNode findNode(char currChar){
 		int index = currChar - 'a';
-		return children[index];								//if none of the child matches, return null
+		return children[index];		//return matching node
 	}
 	
 	public boolean findWord(String word){
@@ -85,26 +68,8 @@ public class TrieNode {
 			return false;
 	}
 	
-	public TrieNode findNextChild(char currChild){
-		int i;
-		
-		for (i = currChild - 'a'+1; i < 26; i++){
-			if (children[i] != null)
-				return children[i];
-		}
-		
-		return null;
-	}
 	
-	public TrieNode findFirstChild(){
-		
-		for (int i = 0; i < 26; i++){
-			if (children[i] != null)
-				return children[i];
-		}
-		return null;
-		
-	}
+
 
 }
 

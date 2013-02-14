@@ -12,102 +12,73 @@ import java.util.Iterator;
  */
 public class Trie implements Iterable<String>{
 
-
 	public TrieNode root; // root of the trie
-//	public TrieIterator currIte = new TrieIterator();
-	//public ArrayDeque<Pair> visit = new ArrayDeque<Pair>();
-
 
 	public Trie() {
 		root = new TrieNode(); // initialize root to a new TrieNode
 	}
 
-	/*
-	 * PURPOSE: add a new word to the trie 
-	 * PARAMS: 
-	 *  newWord: the word is to be added to the trie 
-	 * ALGORITHMS: go through each character in the new word
-	 * and check if they exist in the trie, each character has to be the
-	 * children of the one before it. As soon as a character isn't a child, add
-	 * it to the children list.
-	 */
 	public boolean add(String newWord) {
-		if (root.findWord(newWord))
+		if (root.findWord(newWord)) //check if the word already exists
 			return false;
-		else{			
+		else{	//add if it doesn't exist		 
 			root.addWord(newWord);
 			return true;
 		}
 	}
 
-	/*
-	 * PURPOSE: determine if a word exists in a trie 
-	 * PARAMS: 
-	 *  word: the word that the program is looking for 
-	 * ALGORITHM: check if the first letter is the immediate child of the root 
-	 * if it is, then move on and check each letter.	
-	 */
+	
 	public boolean find(String word) {
 		return root.findWord(word);
 	}
 
 	public ArrayList<String> getWordsWithSubstring(String letters){
-//		TrieIterator currIte = new TrieIterator();
 		ArrayList<String> resultList = new ArrayList<String>();
-//		currIte.startIterator(root);
 		String currWord;
 		Iterator<String> currIte = iterator();
 
-		while (currIte.hasNext()){
+		while (currIte.hasNext()){ //iterate through each word
 			currWord = currIte.next();
-			if (currWord.contains(letters)){
+			if (currWord.contains(letters)){  //if it contains the substring, add to result list
 				resultList.add(currWord);
 			}
 		}
-
-		for (int i = 0 ; i < resultList.size(); i++)
-			System.out.println(resultList.get(i));
 
 		return resultList;
 	}
 
 	public ArrayList<String> getAllWords(){
-//		TrieIterator currIte = new TrieIterator();
 		ArrayList<String> resultList = new ArrayList<String>();
-//		currIte.startIterator(root);
+		String currWord;
 		Iterator<String> currIte = iterator();
-		while (currIte.hasNext()){
-			resultList.add(currIte.next());
-		}
 
-		for (int i = 0 ; i < resultList.size(); i++)
-			System.out.println(resultList.get(i));
+		while (currIte.hasNext()){ //iterate through each word
+			currWord = currIte.next();
+			resultList.add(currWord); //add to result list
+		}
 
 		return resultList;
-	} 
-
+	}
+	
+	//toString will return all the words into a string with a space between each word
 	public String toString(){
-		//ArrayList<String> resultList = new ArrayList<String>();
-//		TrieIterator currIte = new TrieIterator();
 		String resultString = "";
-//		currIte.startIterator(root);
 		Iterator<String> currIte = iterator();
-		while(currIte.hasNext()){
-			resultString += currIte.next() + "\n";
-		}
-
-		System.out.print(resultString);
+		
+		while(currIte.hasNext()) //iterate through each word and append it to the string
+			resultString += currIte.next() + " ";
 
 		return resultString;
 	}
 
+	//invoke the appropriate visitor
 	public ArrayList<String> accept(Visitor aVisitor){
 		return aVisitor.visitTrieNode(this);
 	}
 
+	//create the iterator for the trie
 	@Override
 	public Iterator<String> iterator() {
-		// TODO Auto-generated method stub
 		TrieIterator currIte = new TrieIterator(root);
 		return currIte;
 	}

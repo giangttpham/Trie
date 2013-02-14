@@ -49,15 +49,15 @@ public class TrieClient {
 
 		//print all function
 		System.out.println("All the words in the trie");
-		//testTrie.toString();
+		testTrie.toString();
 
 //		AllWordsVisitor testPrintAll = new AllWordsVisitor();
 //		WordsWithSubstringVisitor testPrint = new WordsWithSubstringVisitor("ck");
-		WordsWithSubstringStrategy testTwoVowels = new WordsWithSubstringStrategy("ck");
-		StrategyVisitor testStra = new StrategyVisitor(testTwoVowels);
+//		WordsWithTwoVowelsStrategy testTwoVowels = new WordsWithTwoVowelsStrategy();
+//		StrategyVisitor testStra = new StrategyVisitor(testTwoVowels);
 		//result = testTrie.accept(testPrintAll);
 		//testTrie.accept(testPrint);
-		result = testTrie.accept(testStra);
+//		result = testTrie.accept(testStra);
 		System.exit(0);
 	}
 }

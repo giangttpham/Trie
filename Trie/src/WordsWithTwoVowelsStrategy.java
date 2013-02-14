@@ -1,11 +1,9 @@
 import java.util.ArrayList;
 import java.util.Iterator;
 
-
 public class WordsWithTwoVowelsStrategy extends Strategy{
 
 	char[] vowels;
-	//Trie aTrie;
 	
 	public WordsWithTwoVowelsStrategy(){
 		vowels = new char[5];
@@ -18,50 +16,42 @@ public class WordsWithTwoVowelsStrategy extends Strategy{
 	
 	
 	@Override
-	ArrayList<String> getAlgorithm(Visitor aVisitor, Trie currTrie) {
-		// TODO Auto-generated method stub
-		
+	ArrayList<String> getAlgorithm(Visitor aVisitor, Trie currTrie) {		
 		String currStr;
 		ArrayList<String> result = new ArrayList<String>();
-		
-//		currTrie.currIte.startIterator(currTrie.root);
 		Iterator<String> currIte = currTrie.iterator();
 		
-		while(currIte.hasNext()){
+		while(currIte.hasNext()){  //iterate through the currTrie
 			currStr = currIte.next();
-			if (containTwoVowels(currStr)){
-				result.add(currStr);
+			if (containTwoVowels(currStr)){  //check if each word has more than 2 vowels
+				result.add(currStr);  //if true, add it to result
 			}
 		}
-		
-		for (int i = 0; i < result.size(); i++){
-			System.out.println(result.get(i));
-		}
+
 		return result;
 	}
 	
+	//check if a character is a vowel
 	public boolean isVowel(char currChar){
 		for (int i = 0; i < 5; i++){
-			if (currChar == vowels[i])
-				return true;
+			if (currChar == vowels[i]) //true if the character matches any of the vowels
+				return true;  
 		}
-		return false;
 		
+		return false;		
 	}
+	
+	//check if a word contains more than 2 vowels
 	public boolean containTwoVowels(String word){
 		int count = 0;
+		
 		for (int i =0; i< word.length();i++){
-			
-			if (isVowel(word.charAt(i)))
+			if (isVowel(word.charAt(i))) //get each character and check if its a vowel
 				count++;
-			if (count == 2)
+			if (count > 2) //true as soon as we hit more than 2 vowels
 				return true;
 		}
-		return false;
-			
+		
+		return false;			
 	}
-
-
-
-
 }
