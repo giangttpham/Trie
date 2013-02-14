@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
 
 public class WordsWithTwoVowelsStrategy extends Strategy{
@@ -23,10 +24,11 @@ public class WordsWithTwoVowelsStrategy extends Strategy{
 		String currStr;
 		ArrayList<String> result = new ArrayList<String>();
 		
-		currTrie.currIte.startIterator(currTrie.root);
+//		currTrie.currIte.startIterator(currTrie.root);
+		Iterator<String> currIte = currTrie.iterator();
 		
-		while(currTrie.currIte.hasNext()){
-			currStr = currTrie.currIte.next();
+		while(currIte.hasNext()){
+			currStr = currIte.next();
 			if (containTwoVowels(currStr)){
 				result.add(currStr);
 			}

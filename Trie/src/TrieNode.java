@@ -14,7 +14,7 @@ public class TrieNode {
 	char nContent; 			//The character that each TrieNode holds
 	boolean endOfWord;		//Indicates if this TrieNode is the end of a word
 	TrieNode[] children;//List of all the characters followed the current character
-	
+	TrieNode parent;
 	
 	/***********************************METHOD FUNCTIONS********************************/
 	/*
@@ -23,6 +23,7 @@ public class TrieNode {
 	public TrieNode(){
 		endOfWord = false;					//Assume the new TrieNode isn't the end of a word
 		children = new TrieNode[26];	//Instantiate the children list
+		//parent = new TrieNode();
 	}
 
 	/*
@@ -34,7 +35,7 @@ public class TrieNode {
 		nContent = newChar;					//Set content to the given character
 		endOfWord = false;					//Assume the new TrieNode isn't the end of a word
 		children = new TrieNode[26];	//Instantiate the children list
-		
+		//parent = new TrieNode();		//initialize the parent node to null
 	}
 	
 	public void addWord(String word) {
@@ -43,6 +44,7 @@ public class TrieNode {
 			return;
 		}
 		TrieNode forWord = nodeFor(word);
+		forWord.parent = this;
 		forWord.addWord(word.substring(1));
 	}
 	

@@ -45,7 +45,7 @@ public class TrieClient {
 		
 		//get all the words that contain letters "ck"
 		System.out.println("All the wods that contain \"ck\"");
-		//testTrie.printWordsContainSubstring("ck");
+		testTrie.getWordsWithSubstring("ck");
 
 		//print all function
 		System.out.println("All the words in the trie");

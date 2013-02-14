@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 //import java.util.ArrayDeque;
 //import java.util.Iterator;
+import java.util.Iterator;
 
 /**
  * Class trie A trie has a root TrieNode which is null Each immediate child of the
@@ -9,11 +10,11 @@ import java.util.ArrayList;
  * 
  * AUTHOR: GiangPham LAST UPDATED: Jan 24th, 2013
  */
-public class Trie{
+public class Trie implements Iterable<String>{
 
 
 	public TrieNode root; // root of the trie
-	public TrieIterator currIte = new TrieIterator();
+//	public TrieIterator currIte = new TrieIterator();
 	//public ArrayDeque<Pair> visit = new ArrayDeque<Pair>();
 
 
@@ -53,8 +54,9 @@ public class Trie{
 	public ArrayList<String> getWordsWithSubstring(String letters){
 //		TrieIterator currIte = new TrieIterator();
 		ArrayList<String> resultList = new ArrayList<String>();
-		currIte.startIterator(root);
+//		currIte.startIterator(root);
 		String currWord;
+		Iterator<String> currIte = iterator();
 
 		while (currIte.hasNext()){
 			currWord = currIte.next();
@@ -72,8 +74,8 @@ public class Trie{
 	public ArrayList<String> getAllWords(){
 //		TrieIterator currIte = new TrieIterator();
 		ArrayList<String> resultList = new ArrayList<String>();
-		currIte.startIterator(root);
-
+//		currIte.startIterator(root);
+		Iterator<String> currIte = iterator();
 		while (currIte.hasNext()){
 			resultList.add(currIte.next());
 		}
@@ -88,7 +90,8 @@ public class Trie{
 		//ArrayList<String> resultList = new ArrayList<String>();
 //		TrieIterator currIte = new TrieIterator();
 		String resultString = "";
-		currIte.startIterator(root);
+//		currIte.startIterator(root);
+		Iterator<String> currIte = iterator();
 		while(currIte.hasNext()){
 			resultString += currIte.next() + "\n";
 		}
@@ -100,6 +103,13 @@ public class Trie{
 
 	public ArrayList<String> accept(Visitor aVisitor){
 		return aVisitor.visitTrieNode(this);
+	}
+
+	@Override
+	public Iterator<String> iterator() {
+		// TODO Auto-generated method stub
+		TrieIterator currIte = new TrieIterator(root);
+		return currIte;
 	}
 }
 
