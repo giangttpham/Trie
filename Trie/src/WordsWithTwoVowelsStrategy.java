@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.Iterator;
-
 public class WordsWithTwoVowelsStrategy extends Strategy{
 
 	char[] vowels;
@@ -14,35 +11,8 @@ public class WordsWithTwoVowelsStrategy extends Strategy{
 		vowels[4] = 'u';
 	}
 	
-	
 	@Override
-	ArrayList<String> getAlgorithm(Visitor aVisitor, Trie currTrie) {		
-		String currStr;
-		ArrayList<String> result = new ArrayList<String>();
-		Iterator<String> currIte = currTrie.iterator();
-		
-		while(currIte.hasNext()){  //iterate through the currTrie
-			currStr = currIte.next();
-			if (containTwoVowels(currStr)){  //check if each word has more than 2 vowels
-				result.add(currStr);  //if true, add it to result
-			}
-		}
-
-		return result;
-	}
-	
-	//check if a character is a vowel
-	public boolean isVowel(char currChar){
-		for (int i = 0; i < 5; i++){
-			if (currChar == vowels[i]) //true if the character matches any of the vowels
-				return true;  
-		}
-		
-		return false;		
-	}
-	
-	//check if a word contains more than 2 vowels
-	public boolean containTwoVowels(String word){
+	boolean getAlgorithm(Visitor aVisitor, String word) {		
 		int count = 0;
 		
 		for (int i =0; i< word.length();i++){
@@ -53,5 +23,15 @@ public class WordsWithTwoVowelsStrategy extends Strategy{
 		}
 		
 		return false;			
+	}
+
+	//check if a character is a vowel
+	public boolean isVowel(char currChar){
+		for (int i = 0; i < 5; i++){
+			if (currChar == vowels[i]) //true if the character matches any of the vowels
+				return true;  
+		}
+		
+		return false;		
 	}
 }

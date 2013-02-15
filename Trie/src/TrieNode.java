@@ -1,5 +1,3 @@
-//import java.util.ArrayList;
-
 /**
  * Class TrieNode represents each TrieNode in a trie.
  * Each TrieNode holds a character and a list of character following it
@@ -10,10 +8,9 @@
  */
 public class TrieNode {
 
-	
 	char nContent; 			//The character that each TrieNode holds
 	boolean endOfWord;		//Indicates if this TrieNode is the end of a word
-	TrieNode[] children;//List of all the characters followed the current character
+	TrieNode[] children; //all the characters followed the current character
 	TrieNode parent;  //reference to parent node
 	
 	public TrieNode(){
@@ -25,7 +22,6 @@ public class TrieNode {
 		nContent = newChar;					
 		endOfWord = false;					
 		children = new TrieNode[26];	
-	
 	}
 	
 	public void addWord(String word) {
@@ -33,19 +29,22 @@ public class TrieNode {
 			endOfWord = true;
 			return;
 		}
-		TrieNode forWord = addNode(word); //get first charater and add it to trie
+		
+		TrieNode forWord = addNode(word); //get first charater and add to trie
 		forWord.parent = this;
-		forWord.addWord(word.substring(1)); //keep calling itself until the whole word is added
+		//keep calling itself until the whole word is added
+		forWord.addWord(word.substring(1)); 
 	}
 	
 	private TrieNode addNode(String word) {
 		char c = word.charAt(0);
 		int index = c - 'a';
+		
 		if (children[index] == null)
-			children[index] = new TrieNode(c); //insert the new character into the correct position
+			//insert the new character into the correct position
+			children[index] = new TrieNode(c); 
 		return children[index]; 
 	}
-	
 	
 	public TrieNode findNode(char currChar){
 		int index = currChar - 'a';
@@ -67,9 +66,5 @@ public class TrieNode {
 		else
 			return false;
 	}
-	
-	
-
-
 }
 

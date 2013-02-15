@@ -1,21 +1,20 @@
 import java.util.ArrayList;
-//import java.util.ArrayDeque;
-//import java.util.Iterator;
 import java.util.Iterator;
 
 /**
- * Class trie A trie has a root TrieNode which is null Each immediate child of the
- * root TrieNode represents the beginning of a word If we tranverse a trie from the
- * root to a leaf, we have a word
+ * Class trie A trie has a root TrieNode which is null Each immediate child of 
+ * the root TrieNode represents the beginning of a word If we tranverse a trie 
+ * from the root to a leaf, we have a word
  * 
- * AUTHOR: GiangPham LAST UPDATED: Jan 24th, 2013
+ * AUTHOR: GiangPham 
+ * LAST UPDATED: Jan 24th, 2013
  */
 public class Trie implements Iterable<String>{
 
 	public TrieNode root; // root of the trie
 
 	public Trie() {
-		root = new TrieNode(); // initialize root to a new TrieNode
+		root = new TrieNode(); 
 	}
 
 	public boolean add(String newWord) {
@@ -26,12 +25,12 @@ public class Trie implements Iterable<String>{
 			return true;
 		}
 	}
-
 	
 	public boolean find(String word) {
 		return root.findWord(word);
 	}
 
+	//use the iterator to get words with substring
 	public ArrayList<String> getWordsWithSubstring(String letters){
 		ArrayList<String> resultList = new ArrayList<String>();
 		String currWord;
@@ -39,7 +38,8 @@ public class Trie implements Iterable<String>{
 
 		while (currIte.hasNext()){ //iterate through each word
 			currWord = currIte.next();
-			if (currWord.contains(letters)){  //if it contains the substring, add to result list
+			//if it contains the substring, add to result list
+			if (currWord.contains(letters)){  
 				resultList.add(currWord);
 			}
 		}
@@ -47,6 +47,7 @@ public class Trie implements Iterable<String>{
 		return resultList;
 	}
 
+	//use the iterator to get all the words from the trie
 	public ArrayList<String> getAllWords(){
 		ArrayList<String> resultList = new ArrayList<String>();
 		String currWord;
@@ -60,20 +61,16 @@ public class Trie implements Iterable<String>{
 		return resultList;
 	}
 	
-	//toString will return all the words into a string with a space between each word
+	//return all the words into a string with a space between each word
 	public String toString(){
 		String resultString = "";
 		Iterator<String> currIte = iterator();
 		
-		while(currIte.hasNext()) //iterate through each word and append it to the string
+		//iterate through each word and append it to the string
+		while(currIte.hasNext()) 
 			resultString += currIte.next() + " ";
 
 		return resultString;
-	}
-
-	//invoke the appropriate visitor
-	public ArrayList<String> accept(Visitor aVisitor){
-		return aVisitor.visitTrieNode(this);
 	}
 
 	//create the iterator for the trie

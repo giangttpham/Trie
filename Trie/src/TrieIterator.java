@@ -2,7 +2,6 @@
 import java.util.ArrayList;
 import java.util.Iterator;
 
-
 public class TrieIterator implements Iterator<String> {
 
 	TrieNode top;
@@ -44,6 +43,7 @@ public class TrieIterator implements Iterator<String> {
 		// TODO Auto-generated method stub	
 	}
 	
+	//return a word from the current node
 	public String getWord(TrieNode node){
 		String currStr = "" + node.nContent;
 		

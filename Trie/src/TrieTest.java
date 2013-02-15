@@ -1,11 +1,9 @@
 import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 
 public class TrieTest {
 
@@ -50,6 +48,7 @@ public class TrieTest {
 		String substring = "ck";
 		
 		result = testTrie.getWordsWithSubstring(substring);
+		printToScreen("Words With Substring \"ck\" Using Iterator",result);
 		assertTrue(result.size() == 2);
 	}
 
@@ -57,22 +56,33 @@ public class TrieTest {
 	public void testToString() {
 		String result;
 		result = testTrie.toString();
+		//displaying string for confirmation purpose only
 		System.out.println(result);
+		System.out.println();
 	}
 
 	@Test
 	public void testAllWordsVisitor() {
 		AllWordsVisitor testVisitor = new AllWordsVisitor();
-		
-		result = testTrie.accept(testVisitor);
+		RootNode testNode = new RootNode(testTrie.root);
+
+		testNode.accept(testVisitor);
+		result = testVisitor.result;
+
+		printToScreen("All Words Visitor",result);
 		assertTrue(result.size() == 9);
 	}
 	
 	@Test
 	public void testWordsWithSubstringVisitor() {
 		WordsWithSubstringVisitor testVisitor = new WordsWithSubstringVisitor("ck");
+		//the visitor start from root of trie
+		RootNode testNode = new RootNode(testTrie.root);
+
+		testNode.accept(testVisitor);
+		result = testVisitor.result;
 		
-		result = testTrie.accept(testVisitor);
+		printToScreen("Words With Substring \"ck\" Visitor",result);
 		assertTrue(result.size() == 2);
 	}
 	
@@ -80,27 +90,37 @@ public class TrieTest {
 	public void testWordsWithSubstringStrategy() {
 		WordsWithSubstringStrategy testStra = new WordsWithSubstringStrategy("th");
 		StrategyVisitor testVisitor = new StrategyVisitor(testStra);
+		//the visitor start from root of trie
+		RootNode testNode = new RootNode(testTrie.root);
 		
-		result = testTrie.accept(testVisitor);
-		assertTrue(result.size() == 2);
+		testNode.accept(testVisitor);
+		result = testVisitor.result;
 		
+		printToScreen("Words With Substring \"th\" Strategy",result);
+		assertTrue(result.size() == 2);	
 	}
 	
 	@Test
 	public void testWordsWithTwoVowelsStrategy() {
 		WordsWithTwoVowelsStrategy testStra = new WordsWithTwoVowelsStrategy();
 		StrategyVisitor testVisitor = new StrategyVisitor(testStra);
-		result = testTrie.accept(testVisitor);
+		//the visitor start from root of trie
+		RootNode testNode = new RootNode(testTrie.root);
+
+		testNode.accept(testVisitor);
+		result = testVisitor.result;
+		
+		printToScreen("Words With More Than 2 Vowels Strategy",result);
 		assertTrue(result.size() == 3);
 	}
-//	@Test
-//	public void testAccept() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testIterator() {
-//		fail("Not yet implemented");
-//	}
-
+	
+	//this function is for displaying words to screen
+	//it's for confirmation purpose only and doesn't affect any functionality
+	//of the package
+	public void printToScreen(String testName, ArrayList<String> result){
+		System.out.println(testName);
+		for (int i = 0; i< result.size(); i++)
+			System.out.println(result.get(i));
+		System.out.println();
+	}
 }

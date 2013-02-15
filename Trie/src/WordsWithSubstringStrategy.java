@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-
-
 public class WordsWithSubstringStrategy extends Strategy {
 
 	String letters;
@@ -10,9 +7,12 @@ public class WordsWithSubstringStrategy extends Strategy {
 	}
 	
 	@Override
-	ArrayList<String> getAlgorithm(Visitor currVisitor, Trie currTrie) {
+	boolean getAlgorithm(Visitor currVisitor, String word) {
 		//strategy to call the function to return words with the substring
-		return currTrie.getWordsWithSubstring(letters);
+		
+		if (word.contains(letters))
+			return true;
+		else 
+			return false;
 	}
-
 }
